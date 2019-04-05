@@ -8,9 +8,9 @@
                 :id="column.id"
                 :title="column.title"
                 :cards-count="column.cards.length">
-        <v-cards v-for="card in column.cards"
-                 :key="card.id"
-                 :content="card.content" />
+        <v-card v-for="card in column.cards"
+                :key="card.id"
+                :content="card.content" />
       </v-column>
 
       <div class="add-column-button"

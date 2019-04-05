@@ -39,7 +39,7 @@ export default {
 <style lang='scss' scoped>
 .btn {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   height: 34px;
 
   color: rgb(36, 41, 46);

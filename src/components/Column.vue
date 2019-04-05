@@ -13,7 +13,8 @@
       <div class="right">
         <v-icon class="add-card"
                 name="add"
-                color="rgb(88, 96, 105)" />
+                color="rgb(88, 96, 105)"
+                @click="toggleCardInputBlock" />
         <v-dropdown>
           <v-icon slot="activitor"
                   class="edit-card"
@@ -27,11 +28,32 @@
         </v-dropdown>
       </div>
     </div>
+
+    <div class="column__body">
+      <div v-show="cardInputBlockVisible"
+           class="card-input-block">
+        <textarea rows="2"
+                  placeholder="Enter a note"
+                  v-model="cardContentInputText"></textarea>
+        <div class="buttons">
+          <v-button class="btn"
+                    type="success"
+                    :disabled="cardInputDisabled"
+                    @click="handleCardAddButtonClick">Add</v-button>
+          <v-button class="btn"
+                    @click="handleCardCancelButtonClick">Cancel</v-button>
+        </div>
+      </div>
+
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import VIcon from '@/components/Icon';
+import VButton from '@/components/Button';
 import VDivider from '@/components/Divider';
 import VDropdown from '@/components/Dropdown';
 import VDropdownMenu from '@/components/DropdownMenu';
@@ -44,6 +66,7 @@ export default {
 
   components: {
     VIcon,
+    VButton,
     VDivider,
     VDropdown,
     VDropdownMenu,
@@ -64,8 +87,16 @@ export default {
   data() {
     return {
       clolumnDeleteModalVisible: false,
-      columnUpdateModalVisible: false
+      columnUpdateModalVisible: false,
+      cardInputBlockVisible: false,
+      cardContentInputText: ''
     };
+  },
+
+  computed: {
+    cardInputDisabled() {
+      return this.cardContentInputText === '';
+    }
   },
 
   provide() {
@@ -76,11 +107,30 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['ADD_CARD']),
+
     handleDeleteClick() {
       this.clolumnDeleteModalVisible = true;
     },
+
     handleUpdateClick() {
       this.columnUpdateModalVisible = true;
+    },
+
+    toggleCardInputBlock() {
+      this.cardInputBlockVisible = !this.cardInputBlockVisible;
+    },
+
+    handleCardAddButtonClick() {
+      this.ADD_CARD({
+        columnId: this.id,
+        content: this.cardContentInputText
+      });
+      this.cardContentInputText = '';
+    },
+
+    handleCardCancelButtonClick() {
+      this.cardInputBlockVisible = false;
     }
   }
 };
@@ -135,6 +185,10 @@ export default {
 
       .add-card {
         margin-right: 8px;
+        &:hover {
+          cursor: pointer;
+          color: #2188ff !important;
+        }
       }
 
       .edit-card {
@@ -142,6 +196,55 @@ export default {
 
         &:hover {
           cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .column__body {
+    padding: 8px;
+
+    .card-input-block {
+      textarea {
+        width: 100%;
+        min-height: 34px;
+        line-height: 25px;
+        padding: 6px 8px;
+        border: 1px solid rgb(209, 213, 218);
+        border-radius: 3px;
+        outline: none;
+
+        vertical-align: middle;
+        resize: vertical;
+
+        font-size: 14px;
+        color: #24292e;
+        box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.075);
+
+        &::placeholder {
+          color: rgba(0, 0, 0, 0.3);
+        }
+
+        &:focus {
+          background-color: #fff;
+          border-color: #2188ff;
+          box-shadow: inset 0 1px 2px rgba(27, 31, 35, 0.075),
+            0 0 0 0.2em rgba(3, 102, 214, 0.3);
+          outline: none;
+        }
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+
+        .btn {
+          flex: 1;
+
+          &:first-child {
+            margin-right: 8px;
+          }
         }
       }
     }

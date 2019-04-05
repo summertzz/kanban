@@ -1,6 +1,7 @@
 <template>
   <span :class="['iconfont', `icon-${name}`]"
-        :style="{ color }"></span>
+        :style="{ color }"
+        @click="handleClick"></span>
 </template>
 
 <script>
@@ -13,6 +14,12 @@ export default {
 
   data() {
     return {};
+  },
+
+  methods: {
+    handleClick(e) {
+      this.$emit('click', e);
+    }
   }
 };
 </script>

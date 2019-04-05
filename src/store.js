@@ -57,7 +57,41 @@ export default new Vuex.Store({
       let target = state.columns.find((item) => item.id === id);
 
       target.title = title;
+    },
+
+    // 添加 card
+    ADD_CARD(state, {
+      columnId,
+      content
+    }) {
+      let column = state.columns.find((item) => item.id === columnId);
+
+
+      column.cards.push({
+        id: shortid.generate(),
+        content: content
+      })
+    },
+    // 删除 card
+    DELETE_CARD(state, {
+      columnId,
+      cardId
+    }) {
+      let column = state.columns.find((item) => item.id === columnId);
+      let index = column.cards.findIndex((item) => item.id === cardId);
+      column.cards.splice(index, 1);
+    },
+    // 编辑 card
+    UPDATE_CARD(state, {
+      columnId,
+      cardId,
+      content
+    }) {
+      let column = state.columns.find((item) => item.id === columnId);
+      let target = column.cards.find((item) => item.id === cardId);
+      target.content = content;
     }
+
   },
 
   actions: {

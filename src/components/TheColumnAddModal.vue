@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 
 import vButton from '@/components/Button';
 import vModal from '@/components/Modal';

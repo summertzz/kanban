@@ -26,14 +26,12 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 
-import vButton from '@/components/Button';
 import vIcon from '@/components/Icon';
 
 export default {
   components: {
-    vButton,
     vIcon
   },
 
