@@ -1,7 +1,7 @@
 <template>
   <v-modal :title="modalTitle"
            v-bind="$attrs"
-           @update:visible="closeModal">
+           v-on="$listeners">
     <div class="column-name">Column name</div>
     <input ref="input"
            type="text"

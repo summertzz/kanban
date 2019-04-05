@@ -1,7 +1,7 @@
 <template>
   <v-modal :title="modalTitle"
            v-bind="$attrs"
-           @update:visible="closeModal">
+           v-on="$listeners">
     <p class="desc">This action will remove any cards and automation preset associated with the column.</p>
 
     <div class="modal-footer">
