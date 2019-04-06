@@ -44,9 +44,6 @@ export default {
   position: relative;
 
   &__activator {
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
     outline: none;
 
     &::-webkit-details-marker {

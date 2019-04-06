@@ -14,6 +14,7 @@ export default {
 
 <style lang='scss' scoped>
 .menu__content {
+  z-index: 1;
   position: absolute;
   top: 14px;
   right: -6px;

@@ -33,8 +33,10 @@
       <div v-show="cardInputBlockVisible"
            class="card-input-block">
         <textarea rows="2"
+                  ref="input"
                   placeholder="Enter a note"
-                  v-model="cardContentInputText"></textarea>
+                  v-model="cardContentInputText"
+                  class="textarea"></textarea>
         <div class="buttons">
           <v-button class="btn"
                     type="success"
@@ -119,6 +121,12 @@ export default {
 
     toggleCardInputBlock() {
       this.cardInputBlockVisible = !this.cardInputBlockVisible;
+
+      this.$nextTick(() => {
+        if (this.cardInputBlockVisible) {
+          this.$refs.input.focus();
+        }
+      });
     },
 
     handleCardAddButtonClick() {
@@ -154,6 +162,7 @@ export default {
     height: 38px;
 
     padding: 8px;
+    padding-bottom: 0;
     font-size: 14px;
     font-weight: 600;
 
@@ -205,7 +214,7 @@ export default {
     padding: 8px;
 
     .card-input-block {
-      textarea {
+      .textarea {
         width: 100%;
         min-height: 34px;
         line-height: 25px;

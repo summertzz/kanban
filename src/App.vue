@@ -10,6 +10,7 @@
                 :cards-count="column.cards.length">
         <v-card v-for="card in column.cards"
                 :key="card.id"
+                :id="card.id"
                 :content="card.content" />
       </v-column>
 
